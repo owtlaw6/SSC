@@ -1,0 +1,7 @@
+C:\Users\student\Desktop\labS3velciov\labS3velciov\bin\Debug\labS3velciov.exe
+C:\Users\student\Desktop\labS3velciov\labS3velciov\bin\Debug\labS3velciov.pdb
+C:\Users\student\Desktop\labS3velciov\labS3velciov\obj\x86\Debug\labS3velciov.Form1.resources
+C:\Users\student\Desktop\labS3velciov\labS3velciov\obj\x86\Debug\labS3velciov.Properties.Resources.resources
+C:\Users\student\Desktop\labS3velciov\labS3velciov\obj\x86\Debug\labS3velciov.csproj.GenerateResource.Cache
+C:\Users\student\Desktop\labS3velciov\labS3velciov\obj\x86\Debug\labS3velciov.exe
+C:\Users\student\Desktop\labS3velciov\labS3velciov\obj\x86\Debug\labS3velciov.pdb
